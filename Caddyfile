@@ -6,3 +6,9 @@ pebblepatch.dev {
 	root * /root/pebblepatch
 	file_server
 }
+
+diatonic.pebblepatch.dev {
+	root * /root/diatonic/build
+	file_server
+}
+
