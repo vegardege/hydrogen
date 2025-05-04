@@ -1,3 +1,8 @@
 {
     email vegardegeland@gmail.com
 }
+
+pebblepatch.dev {
+    root * /root/pebblepatch
+    file_server
+}
