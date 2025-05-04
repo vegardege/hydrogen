@@ -7,6 +7,10 @@ pebblepatch.dev {
 	file_server
 }
 
+bookbear.pebblepatch.dev {
+	reverse_proxy localhost:3000
+}
+
 diatonic.pebblepatch.dev {
 	root * /root/diatonic/build
 	file_server
