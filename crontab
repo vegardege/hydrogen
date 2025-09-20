@@ -1,0 +1,1 @@
+0 6 * * 1-5 /usr/bin/docker run --rm --env-file /root/monsieurm/.env vegardege/monsieurm:latest solve --post-slack >> /var/log/cron.log 2>&1
