@@ -3,7 +3,7 @@
 }
 
 pebblepatch.dev {
-	root * /root/pebblepatch
+	root * /srv/pebblepatch
 	file_server
 }
 
@@ -12,7 +12,7 @@ bookbear.pebblepatch.dev {
 }
 
 diatonic.pebblepatch.dev {
-	root * /root/diatonic/build
+	root * /srv/diatonic/build
 	file_server
 }
 
