@@ -2,13 +2,13 @@
 	email vegardegeland@gmail.com
 }
 
+#
+# Static sites
+#
+
 pebblepatch.dev {
 	root * /srv/pebblepatch
 	file_server
-}
-
-bookbear.pebblepatch.dev {
-	reverse_proxy localhost:3000
 }
 
 diatonic.pebblepatch.dev {
@@ -16,3 +16,12 @@ diatonic.pebblepatch.dev {
 	file_server
 }
 
+#
+# Reverse proxies
+#
+# Port numbers must correspond to the exposed ports in `compose.yml`
+#
+
+bookbear.pebblepatch.dev {
+	reverse_proxy localhost:3000
+}
