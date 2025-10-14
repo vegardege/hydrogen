@@ -1,4 +1,4 @@
-# Setup mounted drive
+# Setup Mounted Drive (only once)
 
 ```bash
 ln -s /mnt/volume_fra1_01/cache ~/.cache
@@ -20,14 +20,7 @@ systemctl restart caddy	 # Restart after config changes
 systemctl reload caddy	 # Graceful reload (no downtime)
 ```
 
-# Start Reverse Proxies
-
-```bash
-cd hydrogen
-docker compose up -d
-```
-
-# Host static sites
+# Host Static Sites
 
 ```bash
 sudo chown -R caddy:caddy /srv/site
@@ -48,3 +41,8 @@ site.pebblepatch.dev {
 - Add site to `Caddyfile`
 - Add to `compose.yml`
 - Ensure port number is the same
+
+```bash
+cd hydrogen
+docker compose up -d
+```

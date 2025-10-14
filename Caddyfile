@@ -19,7 +19,7 @@ diatonic.pebblepatch.dev {
 #
 # Reverse proxies
 #
-# Port numbers must correspond to the exposed ports in `compose.yml`
+# Port numbers must match the exposed ports in `compose.yml`
 #
 
 bookbear.pebblepatch.dev {
