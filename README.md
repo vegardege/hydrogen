@@ -46,15 +46,3 @@ site.pebblepatch.dev {
 cd hydrogen
 docker compose up -d
 ```
-
-# Services
-
-## pvduck
-
-```bash
-docker run --rm -it \
-    -v pvduck_config:$HOME/.config \
-    -v pvduck_data:$HOME/.local/share \
-    vegardege/pvduck:latest \
-    create aggregated
-```
