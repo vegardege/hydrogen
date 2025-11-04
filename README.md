@@ -1,93 +1,42 @@
 # Hydrogen
 
-This repository contains the configuration needed to setup a small server hosting [Pebble Patch](https://pebblepatch.dev/) and my other side projects.
+Infrastructure-as-code configuration for a small web server hosting [Pebble Patch](https://pebblepatch.dev/) and my other side projects.
 
-I don't expect the reusability to be significant, but share the files because sharing is nice and feedback always welcome.
+This is highly unlikely to be directly reusable for anyone but me, but I'm making it public in the spirit of sharing and in case someone wants to suggest any improvements.
 
-Following are instructions on how to setup a new server from scratch.
+## Stack
 
-## Provisioning the Server
+The project uses:
 
-The server is currently hosted at [Hetzner](https://hetzner.com/). First steps:
+- [Terraform](https://developer.hashicorp.com/terraform) for server provisioning
+- [Ansible](https://www.ansible.com/) for automatic configuration of the server
+- [Debian Stable](https://www.debian.org/) as the operating system of choice
+- [Caddy](https://caddyserver.com/) for static site hosting
+- [Docker](https://www.docker.com/) for dynamic site hosting (reverse-proxied through Caddy)
 
-1. Setup an account and a new project
-2. Create an API Token in `Security > API Tokens > Generate API Token`
-3. Export the newly generated token as `HCLOUD_TOKEN` in your shell
-4. Add your SSH key in the console
-5. Update `terraform.tfvars` with the chosen ssh-key name.
+## Structure
 
-We are now ready to create the server itself. For a reproducible setup, we use [Terraform](https://developer.hashicorp.com/terraform). Follow the installation instructions on your preferred system, then initialize with:
-
-```bash
-cd terraform
-terraform init
+```
+terraform/       # Server provisioning
+ansible/         # Configuration management
+  roles/
+    users/       # User and group setup
+    security/    # SSH hardening, auto-updates
+    docker/      # Docker installation
+    caddy/       # Caddy web server
+deploy/          # Example deployment scripts
+caddy/           # My Caddyfile configurations
+docker/          # My docker compose files
 ```
 
-After the initial setup, you can use:
+## Setup
 
-```bash
-cd terraform
-terraform plan
-terraform apply
-ssh root@<ipv4-address-from-output>
-```
+See [SETUP.md](SETUP.md) for detailed instructions on provisioning and configuring a server from scratch.
 
-You should now have a running server. To destroy the setup again:
+If you actually want to use any of this yourself, make sure to check all variables and configurations.
 
-```bash
-cd terraform
-terraform plan -destroy
-terraform destroy
-```
+## Deployment
 
-## Configuring the Server
+Look at the included deploy scripts for example deployment workflows.
 
-To automate the server setup, we will use [Ansible](https://www.redhat.com/en/ansible-collaborative). Follow the installation instructions on your preferred system.
-
-Once Ansible is installed, create the desired SSH keys (e.g. `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_hydro` and `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_deploy`) and initialize ansible with:
-
-```bash
-cd ansible
-ansible-galaxy install -r requirements.yml
-```
-
-You can now configure the server by running the main playbook:
-
-```bash
-cd ansible
-ansible-playbook playbooks/setup.yml -e "server_ip=$(terraform -chdir=../terraform output -raw server_ipv4)"
-```
-
-Feel free to hard code the server IP as a variable or an env var, of course. I don't pay for a floating IP myself, so it's only constant for the lifetime of the server.
-
-This will, by default:
-
-- Create a `hydro` admin user with sudo privileges
-- Create a `deploy` user with limited access for static site deployment
-- Install `docker` and `caddy` to serve the web projects
-- Create a directory structure under `/srv` with proper ownership and mode
-- Apply some basic security improvements
-
-After the playbook completes, add an SSH config entry:
-
-```bash
-cat >> ~/.ssh/config <<EOF
-
-Host hydrogen
-  HostName $(terraform -chdir=terraform output -raw server_ipv4)
-  User hydro
-  IdentityFile ~/.ssh/id_ed25519_hydro
-EOF
-```
-
-And you can SSH to the server:
-
-```bash
-ssh hydrogen
-```
-
-Or SSH with the desired user:
-
-```bash
-ssh -i ~/.ssh/id_ed25519_deploy deploy@<ip>
-```
+In practice, you should integrate these in your CI/CD pipeline of choice instead of depending on the shell scripts, though.
