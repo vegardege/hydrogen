@@ -1,5 +1,5 @@
 {
-	email vegardegeland@gmail.com
+    email vegardegeland@gmail.com
 }
 
 #
@@ -7,13 +7,13 @@
 #
 
 pebblepatch.dev {
-	root * /srv/pebblepatch
-	file_server
+    root * /srv/static/pebblepatch/
+    file_server
 }
 
 diatonic.pebblepatch.dev {
-	root * /srv/diatonic/build
-	file_server
+    root * /srv/static/diatonic/
+    file_server
 }
 
 #
@@ -23,5 +23,5 @@ diatonic.pebblepatch.dev {
 #
 
 bookbear.pebblepatch.dev {
-	reverse_proxy localhost:3000
+    reverse_proxy localhost:3000
 }
