@@ -64,14 +64,20 @@ This will, by default:
 
 - Create a `hydro` admin user with sudo privileges
 - Create a `deploy` user with limited access for static site deployment
+- Install `docker` and `caddy` to serve the web projects
+- Create a directory structure under `/srv` with proper ownership and mode
+- Apply some basic security improvements
 
-After the playbook completes, add the following to `~/.ssh/config`:
+After the playbook completes, add an SSH config entry:
 
 ```bash
+cat >> ~/.ssh/config <<EOF
+
 Host hydrogen
-  HostName <ip>
+  HostName $(terraform -chdir=terraform output -raw server_ipv4)
   User hydro
   IdentityFile ~/.ssh/id_ed25519_hydro
+EOF
 ```
 
 And you can SSH to the server:
