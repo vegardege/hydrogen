@@ -1,0 +1,5 @@
+---
+# Shared variables available to all roles
+
+# Admin user configuration
+admin_user: hydro

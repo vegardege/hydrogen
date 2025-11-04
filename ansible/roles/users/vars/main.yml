@@ -1,6 +1,5 @@
 ---
-# Admin user configuration
-admin_user: hydro
+# Admin user configuration (admin_user defined in group_vars/all.yml)
 admin_user_groups:
   - sudo
   - deploy
