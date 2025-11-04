@@ -4,6 +4,8 @@ Infrastructure-as-code configuration for a small web server hosting [Pebble Patc
 
 This is highly unlikely to be directly reusable for anyone but me, but I'm making it public in the spirit of sharing and in case someone wants to suggest any improvements.
 
+The goal of the setup is to run all my side projects for under €10/month, which works like a charm at the moment.
+
 ## Stack
 
 The project uses:
