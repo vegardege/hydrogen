@@ -1,0 +1,7 @@
+---
+- name: Setup Hydrogen server
+  hosts: all
+  become: true
+
+  roles:
+    - users

@@ -1,0 +1,42 @@
+---
+- name: Ensure deploy group exists
+  ansible.builtin.group:
+    name: deploy
+    state: present
+
+- name: Ensure admin user exists
+  ansible.builtin.user:
+    name: "{{ admin_user }}"
+    groups: "{{ admin_user_groups }}"
+    append: true
+    shell: /bin/bash
+    state: present
+
+- name: Set authorized keys for admin user
+  ansible.posix.authorized_key:
+    user: "{{ admin_user }}"
+    key: "{{ admin_ssh_public_key }}"
+    state: present
+
+- name: Ensure admin user can sudo without password
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/{{ admin_user }}
+    line: "{{ admin_user }} ALL=(ALL) NOPASSWD:ALL"
+    create: true
+    mode: '0440'
+    validate: 'visudo -cf %s'
+
+- name: Ensure deploy user exists
+  ansible.builtin.user:
+    name: "{{ deploy_user }}"
+    groups: "{{ deploy_user_groups }}"
+    append: true
+    shell: /bin/bash
+    state: present
+
+- name: Set authorized keys for deploy user with restrictions
+  ansible.posix.authorized_key:
+    user: "{{ deploy_user }}"
+    key: "{{ deploy_ssh_public_key }}"
+    key_options: 'no-port-forwarding,no-X11-forwarding,no-agent-forwarding'
+    state: present

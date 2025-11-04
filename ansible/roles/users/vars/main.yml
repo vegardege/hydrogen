@@ -1,0 +1,15 @@
+---
+# Admin user configuration
+admin_user: hydro
+admin_user_groups:
+  - sudo
+  - deploy
+
+# Deploy user configuration
+deploy_user: deploy
+deploy_user_groups:
+  - deploy
+
+# SSH public keys
+admin_ssh_public_key: "{{ lookup('file', '~/.ssh/id_ed25519_hydro.pub') }}"
+deploy_ssh_public_key: "{{ lookup('file', '~/.ssh/id_ed25519_deploy.pub') }}"
