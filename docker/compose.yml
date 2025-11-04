@@ -6,5 +6,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - /root/bookbear/data:/app/data
+      - bookbear-data:/app/data
     restart: unless-stopped
+
+volumes:
+  bookbear-data:
