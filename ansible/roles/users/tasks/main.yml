@@ -29,6 +29,7 @@
 - name: Ensure deploy user exists
   ansible.builtin.user:
     name: "{{ deploy_user }}"
+    group: deploy
     groups: "{{ deploy_user_groups }}"
     append: true
     shell: /bin/bash
