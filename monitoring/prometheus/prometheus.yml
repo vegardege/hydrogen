@@ -1,6 +1,6 @@
 global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
+  scrape_interval: 1m
+  evaluation_interval: 1m
 
 scrape_configs:
   # Prometheus scraping itself
@@ -28,3 +28,22 @@ scrape_configs:
       - targets: ['172.17.0.1:2019']  # Docker bridge to host
         labels:
           instance: 'hydrogen'
+
+  # Blackbox probes - check if sites are up and HTTPS working
+  - job_name: 'blackbox'
+    scrape_interval: 10m
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          - https://pebblepatch.dev
+          - https://diatonic.pebblepatch.dev
+          - https://bookbear.pebblepatch.dev
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115

@@ -36,5 +36,12 @@ services:
       - /dev/kmsg
     restart: unless-stopped
 
+  # Probe external endpoints (HTTPS/SSL checks)
+  blackbox_exporter:
+    image: prom/blackbox-exporter:latest
+    volumes:
+      - ./blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
+    restart: unless-stopped
+
 volumes:
   prometheus-data:
