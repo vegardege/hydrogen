@@ -38,6 +38,9 @@ ssh -i ~/.ssh/id_ed25519_hydro "hydro@$SERVER_IP" << 'EOF'
     echo "Starting monitoring stack..."
     cd /srv/monitoring
     docker compose up -d
+
+    echo "Restarting Prometheus to load updated config..."
+    docker compose restart prometheus
 EOF
 
 echo "Monitoring stack deployed successfully!"

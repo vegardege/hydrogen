@@ -14,3 +14,10 @@ scrape_configs:
       - targets: ['node_exporter:9100']
         labels:
           instance: 'hydrogen'
+
+  # Docker container metrics from cAdvisor
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+        labels:
+          instance: 'hydrogen'

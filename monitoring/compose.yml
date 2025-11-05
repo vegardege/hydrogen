@@ -10,6 +10,7 @@ services:
       - prometheus-data:/prometheus
     restart: unless-stopped
 
+  # Monitor debian host system
   node_exporter:
     image: prom/node-exporter:latest
     command:
@@ -17,6 +18,22 @@ services:
     volumes:
       - /:/host:ro,rslave
     pid: host
+    restart: unless-stopped
+
+  # Monitor docker containers
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    privileged: true
+    devices:
+      - /dev/kmsg
     restart: unless-stopped
 
 volumes:
