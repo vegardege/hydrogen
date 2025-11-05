@@ -31,11 +31,8 @@ bookbear.pebblepatch.dev {
 }
 
 #
-# Admin-only monitoring (requires basic auth)
+# Admin-only monitoring (Grafana login)
 #
 monitoring.pebblepatch.dev {
-    basicauth {
-        admin $2a$14$MqNKWZkUoPagR3jxYya/xOR8g..b.qxG6JIBneUKfEFVs.os2GWKu
-    }
-    reverse_proxy localhost:9090
+    reverse_proxy localhost:3001
 }

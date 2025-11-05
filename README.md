@@ -15,7 +15,7 @@ The project uses:
 - [Debian Stable](https://www.debian.org/) as the operating system of choice
 - [Caddy](https://caddyserver.com/) for static site hosting
 - [Docker](https://www.docker.com/) for dynamic site hosting (reverse-proxied through Caddy)
-- [Prometheus](https://prometheus.io/) for system monitoring
+- [Prometheus](https://prometheus.io/) + [Grafana](https://grafana.com/) for system monitoring
 
 ## Structure
 
@@ -28,9 +28,9 @@ ansible/         # Configuration management
     docker/      # Docker installation
     caddy/       # Caddy web server
 deploy/          # Example deployment scripts
-caddy/           # Caddyfile configurations
+caddy/           # caddy config
 docker/          # docker compose files
-prometheus/      # prometheus configuration
+monitoring/      # prometheus and grafana config
 ```
 
 ## Setup
