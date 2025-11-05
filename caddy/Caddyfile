@@ -1,5 +1,9 @@
 {
     email vegardegeland@gmail.com
+    admin 0.0.0.0:2019
+    metrics {
+        per_host
+    }
 }
 
 #

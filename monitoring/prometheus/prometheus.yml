@@ -21,3 +21,10 @@ scrape_configs:
       - targets: ['cadvisor:8080']
         labels:
           instance: 'hydrogen'
+
+  # Caddy web server metrics (running on host)
+  - job_name: 'caddy'
+    static_configs:
+      - targets: ['172.17.0.1:2019']  # Docker bridge to host
+        labels:
+          instance: 'hydrogen'
