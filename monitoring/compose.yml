@@ -47,7 +47,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     ports:
-      - "127.0.0.1:3001:3000"  # Expose on localhost (bookbear uses 3000)
+      - "127.0.0.1:3000:3000"  # Expose on localhost
     volumes:
       - grafana-data:/var/lib/grafana
     environment:

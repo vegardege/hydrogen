@@ -27,12 +27,12 @@ diatonic.pebblepatch.dev {
 #
 
 bookbear.pebblepatch.dev {
-    reverse_proxy localhost:3000
+    reverse_proxy localhost:8001
 }
 
 #
 # Admin-only monitoring (Grafana login)
 #
 monitoring.pebblepatch.dev {
-    reverse_proxy localhost:3001
+    reverse_proxy localhost:3000
 }

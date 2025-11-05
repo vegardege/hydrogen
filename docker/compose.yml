@@ -4,7 +4,7 @@ services:
   bookbear:
     image: vegardege/bookbear:latest
     ports:
-      - "3000:3000"
+      - "127.0.0.1:8001:3000"
     volumes:
       - bookbear-data:/app/data
     restart: unless-stopped
