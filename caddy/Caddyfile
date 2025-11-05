@@ -25,3 +25,13 @@ diatonic.pebblepatch.dev {
 bookbear.pebblepatch.dev {
     reverse_proxy localhost:3000
 }
+
+#
+# Admin-only monitoring (requires basic auth)
+#
+monitoring.pebblepatch.dev {
+    basicauth {
+        admin $2a$14$MqNKWZkUoPagR3jxYya/xOR8g..b.qxG6JIBneUKfEFVs.os2GWKu
+    }
+    reverse_proxy localhost:9090
+}
