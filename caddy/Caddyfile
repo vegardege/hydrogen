@@ -20,6 +20,11 @@ diatonic.pebblepatch.dev {
     file_server
 }
 
+energy.pebblepatch.dev {
+    root * /srv/static/energy/
+    file_server
+}
+
 #
 # Reverse proxies
 #
