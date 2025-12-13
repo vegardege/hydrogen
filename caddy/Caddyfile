@@ -35,6 +35,10 @@ bookbear.pebblepatch.dev {
     reverse_proxy localhost:8001
 }
 
+kingsspeech.pebblepatch.dev {
+    reverse_proxy localhost:8002
+}
+
 #
 # Admin-only monitoring (Grafana login)
 #

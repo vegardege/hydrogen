@@ -8,6 +8,11 @@ services:
     volumes:
       - bookbear-data:/app/data
     restart: unless-stopped
+  kings-speech:
+    image: vegardege/kings-speech:latest
+    ports:
+      - "127.0.0.1:8002:3000"
+    restart: unless-stopped
 
 volumes:
   bookbear-data:
