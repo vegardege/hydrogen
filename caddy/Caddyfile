@@ -25,6 +25,11 @@ energy.pebblepatch.dev {
     file_server
 }
 
+medalmap.pebblepatch.dev {
+    root * /srv/static/medalmap/
+    file_server
+}
+
 #
 # Reverse proxies
 #
