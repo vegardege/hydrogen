@@ -34,7 +34,7 @@ ssh -i ~/.ssh/id_ed25519_hydro "hydro@$SERVER_IP" << 'EOF'
     echo "Moving to /etc/caddy/Caddyfile..."
     sudo mv /tmp/Caddyfile /etc/caddy/Caddyfile
     echo "Reloading Caddy (zero downtime)..."
-    sudo caddy reload --config /etc/caddy/Caddyfile
+    sudo caddy reload --config /etc/caddy/Caddyfile --address localhost:2019
 EOF
 
 echo "Caddyfile deployed and Caddy reloaded successfully!"
