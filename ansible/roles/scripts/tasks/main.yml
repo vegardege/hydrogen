@@ -69,3 +69,19 @@
     hour: '2'
     minute: '0'
     job: /srv/scripts/sync-pvduck.sh
+
+- name: Deploy refresh-bookbear script
+  ansible.builtin.copy:
+    src: refresh-bookbear.sh
+    dest: /srv/scripts/refresh-bookbear.sh
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Schedule weekly bookbear refresh
+  ansible.builtin.cron:
+    name: refresh-bookbear
+    hour: '3'
+    minute: '30'
+    weekday: '0'
+    job: /srv/scripts/refresh-bookbear.sh
