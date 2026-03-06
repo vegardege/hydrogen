@@ -5,7 +5,7 @@
       - unattended-upgrades
       - apt-listchanges
     state: present
-    update_cache: true
+    lock_timeout: 300
 
 - name: Configure unattended-upgrades for security updates only
   ansible.builtin.copy:
