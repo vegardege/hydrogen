@@ -1,0 +1,56 @@
+---
+- name: Create /srv/scripts directory
+  ansible.builtin.file:
+    path: /srv/scripts
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create /srv/data directory
+  ansible.builtin.file:
+    path: /srv/data
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create /srv/data/pvduck directory
+  ansible.builtin.file:
+    path: /srv/data/pvduck
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create /srv/data/bookbear directory
+  ansible.builtin.file:
+    path: /srv/data/bookbear
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create /srv/config directory
+  ansible.builtin.file:
+    path: /srv/config
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create /srv/config/pvduck directory
+  ansible.builtin.file:
+    path: /srv/config/pvduck
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Deploy pvduck wiki config
+  ansible.builtin.copy:
+    src: pvduck/wiki.yml
+    dest: /srv/config/pvduck/wiki.yml
+    owner: root
+    group: root
+    mode: '0644'

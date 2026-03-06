@@ -70,6 +70,16 @@ All scripts try to get the server IP from Terraform. If that fails, you can over
 SERVER_IP=49.13.211.238 ./deploy-static.sh ./site pebblepatch
 ```
 
+## Bootstrapping pvduck
+
+On a fresh server, Ansible creates `/srv/data/pvduck/` but not the database (it's too large to store in the repo). Copy it from your local machine to avoid re-syncing from scratch:
+
+```bash
+scp ~/.local/share/pvduck/bookbear.duckdb hydro@<server>:/srv/data/pvduck/wiki.duckdb
+```
+
+The config file (`/srv/config/pvduck/wiki.yml`) is deployed automatically by Ansible.
+
 ## Notes
 
 - **Static sites**: Changes are immediate, no reload needed
