@@ -49,16 +49,6 @@
     group: deploy
     mode: '2775'
 
-- name: Deploy minimal Caddyfile
-  ansible.builtin.copy:
-    src: Caddyfile
-    dest: /etc/caddy/Caddyfile
-    owner: root
-    group: root
-    mode: '0644'
-    validate: 'caddy validate --config %s --adapter caddyfile'
-  notify: Reload Caddy
-
 - name: Ensure Caddy service is running and enabled
   ansible.builtin.service:
     name: caddy
