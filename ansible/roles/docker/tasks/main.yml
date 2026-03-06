@@ -18,7 +18,7 @@
       - curl
       - gnupg
     state: present
-    update_cache: true
+    lock_timeout: 300
 
 - name: Create directory for Docker GPG key
   ansible.builtin.file:
@@ -54,7 +54,7 @@
       - docker-buildx-plugin
       - docker-compose-plugin
     state: present
-    update_cache: true
+    lock_timeout: 300
 
 - name: Ensure Docker service is running and enabled
   ansible.builtin.service:

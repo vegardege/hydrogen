@@ -3,6 +3,13 @@
   hosts: all
   become: true
 
+  pre_tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        lock_timeout: 300
+      failed_when: false
+
   roles:
     - users
     - security
