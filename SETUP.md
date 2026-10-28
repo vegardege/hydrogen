@@ -86,7 +86,7 @@ ansible-galaxy install -r requirements.yml
 
 ### Run Setup Playbook
 
-Configure the server with all roles (users, security, docker, caddy):
+Configure the server with all roles (users, security, docker, caddy, scripts):
 
 ```bash
 cd ansible
@@ -101,7 +101,8 @@ This playbook will:
 - Create `deploy` user for deployments with restricted SSH access
 - Install Docker and Docker Compose
 - Install Caddy web server
-- Create `/srv/static/` and `/srv/docker/` directories with proper permissions
+- Create `/srv/static/`, `/srv/docker/`, `/srv/scripts/`, `/srv/data/` and `/srv/config/` directories with proper permissions
+- Schedule cron jobs (nightly pvduck sync, weekly bookbear refresh)
 - Configure automatic security updates
 - Disable SSH password authentication
 
@@ -153,7 +154,7 @@ ls -la /srv/
 
 ## 4. Deploy Sites
 
-See the deploy scripts for example deployment instructions. Note that you probably want to include this in your CI/CD pipeline of choice instead of running bash scripts locally.
+See [deploy/README.md](deploy/README.md) for the deploy scripts (run them from the `deploy/` directory). Note that you probably want to include this in your CI/CD pipeline of choice instead of running bash scripts locally.
 
 ## Directory Structure on Server
 
@@ -164,7 +165,10 @@ See the deploy scripts for example deployment instructions. Note that you probab
 │   └── ...
 ├── docker/              # Docker compose files
 │   └── compose.yml
-└── scripts/             # Cron job scripts
+├── monitoring/          # Monitoring stack (deployed by deploy-monitoring.sh)
+├── scripts/             # Cron job scripts
+├── data/                # pvduck and bookbear data
+└── config/              # pvduck config
 
 /etc/caddy/
 └── Caddyfile            # Caddy configuration

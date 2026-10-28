@@ -27,7 +27,8 @@ ansible/         # Configuration management
     security/    # SSH hardening, auto-updates
     docker/      # Docker installation
     caddy/       # Caddy web server
-deploy/          # Example deployment scripts
+    scripts/     # Cron jobs (pvduck sync, bookbear refresh)
+deploy/          # Deployment scripts (run from this directory)
 caddy/           # caddy config
 docker/          # docker compose files
 monitoring/      # prometheus and grafana config

@@ -7,6 +7,7 @@ Helper scripts for deploying to the Hydrogen server.
 - Terraform applied (for getting server IP)
 - Ansible playbook run (users and services set up)
 - SSH keys configured (`~/.ssh/id_ed25519_hydro` and `~/.ssh/id_ed25519_deploy`)
+- Run the scripts from this `deploy/` directory: default paths (`../terraform`, `../docker`, ...) are relative to it
 
 ## Scripts
 
@@ -46,7 +47,7 @@ If no path is provided, defaults to `../caddy/Caddyfile`. This will:
 
 ### deploy-compose.sh
 
-Deploy Docker Compose file changes to the server.
+Deploy Docker Compose file changes to the server, and update services to the latest version of their images (e.g. after a new `bookbear` image is pushed).
 
 ```bash
 ./deploy-compose.sh [path-to-compose.yml]
@@ -59,12 +60,27 @@ Deploy Docker Compose file changes to the server.
 
 If no path is provided, defaults to `../docker/compose.yml`. This will:
 1. Upload compose file to `/srv/docker/compose.yml`
-2. Run `docker compose up -d` (recreates changed containers)
-3. Show running containers
+2. Run `docker compose pull` (fetch latest images for all services)
+3. Run `docker compose up -d` (recreates containers whose config or image changed)
+4. Run `docker image prune -f` (remove old, unused images)
+5. Show running containers
+
+### deploy-monitoring.sh
+
+Deploy the monitoring stack (Prometheus, Grafana, node_exporter, cAdvisor, blackbox_exporter).
+
+```bash
+./deploy-monitoring.sh [path-to-monitoring-dir]
+```
+
+If no path is provided, defaults to `../monitoring`. This will:
+1. Upload `compose.yml`, `prometheus.yml` and `blackbox.yml` to `/srv/monitoring/`
+2. Run `docker compose up -d`
+3. Restart Prometheus to load the updated config
 
 ## Environment Variables
 
-All scripts try to get the server IP from Terraform. If that fails, you can override:
+All scripts get the server IP from Terraform, unless `SERVER_IP` is set:
 
 ```bash
 SERVER_IP=49.13.211.238 ./deploy-static.sh ./site pebblepatch
@@ -84,5 +100,5 @@ The config file (`/srv/config/pvduck/wiki.yml`) is deployed automatically by Ans
 
 - **Static sites**: Changes are immediate, no reload needed
 - **Caddyfile**: Uses `caddy reload` for zero-downtime updates
-- **Docker Compose**: Uses `up -d` which only recreates changed containers
+- **Docker Compose**: Pulls images, then uses `up -d` which only recreates changed containers (brief downtime for those)
 - All scripts use the appropriate SSH keys (`deploy` for static, `hydro` for admin tasks)
