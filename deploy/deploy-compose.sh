@@ -1,10 +1,10 @@
 #!/bin/bash
-# Deploy Docker Compose changes to server
+# Deploy Docker Compose changes and pull latest images on server
 
 set -e
 
 COMPOSE_FILE="${1:-../docker/compose.yml}"
-SERVER_IP=$(terraform -chdir=../terraform output -raw server_ipv4 2>/dev/null || echo "")
+SERVER_IP="${SERVER_IP:-$(terraform -chdir=../terraform output -raw server_ipv4 2>/dev/null || echo "")}"
 
 if [ -z "$SERVER_IP" ]; then
     echo "Error: Could not get server IP from Terraform"
@@ -27,8 +27,12 @@ ssh -i ~/.ssh/id_ed25519_hydro "hydro@$SERVER_IP" << 'EOF'
     echo "Moving compose file to /srv/docker/..."
     sudo mv /tmp/compose.yml /srv/docker/compose.yml
     cd /srv/docker
+    echo "Pulling latest images..."
+    docker compose pull
     echo "Running docker compose up -d..."
     docker compose up -d
+    echo "Removing unused images..."
+    docker image prune -f
     echo "Current containers:"
     docker compose ps
 EOF

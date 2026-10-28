@@ -11,7 +11,7 @@ fi
 
 LOCAL_DIR="$1"
 SITE_NAME="$2"
-SERVER_IP=$(terraform -chdir=../terraform output -raw server_ipv4 2>/dev/null || echo "")
+SERVER_IP="${SERVER_IP:-$(terraform -chdir=../terraform output -raw server_ipv4 2>/dev/null || echo "")}"
 
 if [ -z "$SERVER_IP" ]; then
     echo "Error: Could not get server IP from Terraform"
